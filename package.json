@@ -20,8 +20,6 @@
     "ts-node": "^8.1.0",
     "@types/fs-extra": "^8.0.0",
     "brighterscript": "^0.15.0",
-    "brightscript-language": "^0.2.15",
-    "burp-brightscript": "^0.3.2",
     "del": "^3.0.0",
     "docdash": "^0.4.0",
     "gulp": "^4.0.1",
