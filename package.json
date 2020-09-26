@@ -61,7 +61,7 @@
     "packageRootDir": "dist"
   },
   "scripts": {
-    "build": "export TS_NODE_COMPILER_OPTIONS='{\"incremental\":true, \"allowJs\":false}' && export TS_NODE_TRANSPILE_ONLY=true && gulp compile",
+    "build": "gulp compile",
     "test": "npm run build"
   }
 }
