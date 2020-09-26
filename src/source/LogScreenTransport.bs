@@ -1,0 +1,13 @@
+'@Namespace rLogST rLogScreenTransport  
+class LogScreenTransport
+  function new(mLog)
+    m.screenLogger = createObject("roSGNode", "LogScreenTransport")
+    mLog._screenLogger = screenLogger
+  end function
+
+  function log(args)
+    m.screenLogger.logLine = args.text
+  end function
+
+
+end class
