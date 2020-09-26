@@ -1,6 +1,6 @@
 {
   "name": "maestro-roku-log",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "A development platform for building roku channels in brighterscript. Log Library",
   "directories": {
     "doc": "docs"
