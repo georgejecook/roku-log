@@ -47,9 +47,4 @@ export async function compileTests(cb) {
   // fs.removeSync(path.join('dist', 'source', 'bslib.brs'));
 }
 
-export function test() {
-  fs.removeSync(path.join('dist', 'manifest'));
-  fs.removeSync(path.join('dist', 'source', 'roku_modules'));
-  fs.removeSync(path.join('dist', 'components', 'roku_modules'));
-}
 exports.dist = series(exports.compile, doc);

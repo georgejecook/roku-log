@@ -1,6 +1,6 @@
 {
   "name": "maestro-roku-log",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A development platform for building roku channels in brighterscript. Log Library",
   "directories": {
     "doc": "docs"
@@ -8,10 +8,7 @@
   "files": [
     "dist/**/!(manifest)*"
   ],
-  "dependencies": {
-    "log": "file:../maestro-roku-log",
-    "mc": "file:../maestro-roku-core"
-  },
+  "dependencies": {},
   "devDependencies": {
     "fs-extra": "^5.0.0",
     "gulp-header": "^2.0.7",
