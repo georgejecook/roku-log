@@ -1,0 +1,35 @@
+' /**
+'  * @module LogNodeTransport
+'  * @description implementation of mLog node transport used for sending logs to RALE inspectable nodes
+'  */
+
+function Init() as void
+end function
+
+function updateLogOutput() as void
+  index = m.items.count() - 1
+  loggedTexts = []
+  logText = ""
+  jsonTexts = []
+  while index >= 0
+    item = m.items[index] 
+
+    loggedTexts.push(item.text)
+    jsonTexts.push(item.text)
+    logText += chr(10) + "\n" + item.text
+    index--
+  end while
+  
+  m.top._rawItems = m.items
+  m.top._logText = logText
+  m.top._logOutput = loggedTexts
+  m.top._jsonOutput = formatJson(jsonTexts)
+end function
+
+function logItem(name, levelNum, text)
+  if m.items.count() > m.top.maxItems
+    m.items.delete(0)
+  end if
+  item = { "level": level, "text": text, "name": name }
+  m.items.push(item)
+end function

@@ -1,5 +1,5 @@
 ' /**
-'  * @module rLogScreenTransport
+'  * @module LogScreenTransport
 '  * @description implementation of mLog screen transport
 '  */
 
@@ -9,9 +9,9 @@ function init()
   m.scrollableText = m.top.findNode("scrollableText")
 end function
 
-function onLogLineChange()
-  m.displayedLines.push(left(m.top.logLine, 100))
-  
+function logItem(name, levelNum, text)
+  m.displayedLines.push(left(text, 100))
+
   if m.displayedLines.count() > m.top.maxVisibleLines
     m.displayedLines.delete(0)
   end if
