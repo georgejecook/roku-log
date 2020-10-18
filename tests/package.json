@@ -1,5 +1,5 @@
 {
-  "name": "maestro-roku-log-tests",
+  "name": "roku-log-tests",
   "version": "0.2.0",
   "description": "A development platform for building roku channels in brighterscript. Logging Library",
   "directories": {
@@ -11,7 +11,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/georgejecook/maestro-roku-log.git"
+    "url": "git+https://github.com/georgejecook/roku-log.git"
   },
   "keywords": [
     "ropm",
@@ -23,9 +23,9 @@
   "author": "George Cook",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/georgejecook/maestro-roku-log/issues"
+    "url": "https://github.com/georgejecook/roku-log/issues"
   },
-  "homepage": "https://github.com/georgejecook/maestro-roku-log#readme",
+  "homepage": "https://github.com/georgejecook/roku-log#readme",
   "ts-node": {
     "transpileOnly": true,
     "compileOptions": {

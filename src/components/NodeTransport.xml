@@ -33,7 +33,7 @@
         type='integer'
         value='500' />
 
-    <function name='log_logItem' />
+    <function name='logItem' />
   </interface>
 
 

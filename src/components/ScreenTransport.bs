@@ -4,7 +4,6 @@
 '  */
 
 function init()
-  m.top.observeField("logLine", "onLogLineChange")
   m.displayedLines = []
   m.scrollableText = m.top.findNode("scrollableText")
 end function

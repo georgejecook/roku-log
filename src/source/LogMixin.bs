@@ -95,7 +95,7 @@ function registerLogger(name = "general", target = invalid) as void
       end if
 
       for each transport in m.rLog.transports
-        transport.callFunc("log_logItem", name, levelNum, text)
+        transport.callFunc("logItem", name, levelNum, text)
       end for
     end if
 

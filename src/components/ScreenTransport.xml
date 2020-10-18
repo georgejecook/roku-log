@@ -8,7 +8,7 @@
         id='maxVisibleLines'
         type='integer'
         value='12' />
-    <function name='log_logItem' />
+    <function name='logItem' />
   </interface>
 
   <children>
