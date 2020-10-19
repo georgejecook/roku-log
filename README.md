@@ -119,19 +119,27 @@ Once you have registered a logger, you can invoke the logging methods.
 
 Once you have called `log_registerLogger`, you can call the following functions:
 
- - logError
- - logWarn
- - logInfo
- - logMethod
- - logVerbose
- - logDebug
+ - `m.logError`
+ - `m.logWarn`
+ - `m.logInfo`
+ - `m.logMethod`
+ - `m.logVerbose`
+ - `m.logDebug`
 
 All logging methods have the same signature, allowing for a message, and 9 values:
 
 ```
 m.logXXX(message, value1, value2, value3, value4, value5, value6, value7, value8, value9)
 ```
+
+e.g.
+
+```
+m.logInfo("Received data", json.result, "http call", m.top.uri)
+```
+
 Note, you do not have to worry about converting values into string; `roku-log` will do this for you safely.
+
 
 # PreProcessing logs to remove in prod, or add line numbers:
 
