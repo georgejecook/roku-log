@@ -147,6 +147,8 @@ To get the most out of the `roku-log`, you should use bsc to compile your projec
 
 ## To remove log calls from an app, entirely
 
+Add the following to your `bsconfig.json` (if you have plugins already, append the plugin value)
+
 ```
   "plugins": [
     "roku-log-bsc-plugin"
@@ -157,6 +159,8 @@ To get the most out of the `roku-log`, you should use bsc to compile your projec
 ```
 
 ## To Ensure the pkg path is inserted into each log call in your app:
+
+Add the following to your `bsconfig.json` (if you have plugins already, append the plugin value)
 
 ```
   "plugins": [
