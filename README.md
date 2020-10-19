@@ -149,7 +149,7 @@ To get the most out of the `roku-log`, you should use bsc to compile your projec
 
 ```
   "plugins": [
-    "../../dist/plugin.js"
+    "roku-log-bsc-plugin"
   ],
   "rokuLog": {
     "strip": true
@@ -160,7 +160,7 @@ To get the most out of the `roku-log`, you should use bsc to compile your projec
 
 ```
   "plugins": [
-    "../../dist/plugin.js"
+    "roku-log-bsc-plugin"
   ],
   "rokuLog": {
     "insertPkgPath": true
