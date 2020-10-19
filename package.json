@@ -1,7 +1,7 @@
 {
   "name": "roku-log",
-  "version": "0.2.5",
-  "description": "A development platform for building roku channels in brighterscript. Log Library",
+  "version": "0.1.0",
+  "description": "Simple logging library for roku.",
   "directories": {
     "doc": "docs"
   },

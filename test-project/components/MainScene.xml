@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component
+    name='MainScene'
+    extends='Scene'>
+
+  <script
+      type='text/brightscript'
+      uri='./MainScene.brs' />
+  <interface>
+    <field
+        id='fire'
+        alias='timer.fire'
+        onChange='onTimerFire' />
+  </interface>
+  <children>
+    <Timer
+        id='timer'
+        duration='3'
+        repeat='true'
+        control='start' />
+    <Rectangle
+        color='000000'
+        width='1920'
+        height='1080' />
+    <Rectangle
+        color='#ffffff'
+        opacity='0.4'
+        width='1000'
+        height='500'
+        translation='[100, 50]' />
+    <sl_SmartLabel
+        id='label'
+        translation='[120, 70]'
+        width='900' />
+  </children>
+</component>

@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "brightscript",
+      "request": "launch",
+      "name": "run",
+      "stopOnEntry": false,
+      "host": "192.168.8.169",
+      "password": "aaaa"
+    }
+  ]
+}
