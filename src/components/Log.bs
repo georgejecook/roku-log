@@ -13,6 +13,10 @@ function Init() as void
 end function
 
 function onTransportsChange(event)
+  if m.transports = invalid
+    m.transports = []
+  end if
+
   for each transport in m.transports
     parent = transport.getParent()
     if parent <> invalid
@@ -22,6 +26,12 @@ function onTransportsChange(event)
 
   transports = []
   isPrinting = false
+
+  if m.top.transportTypes <> invalid
+    transportTypes = m.top.transportTypes
+  else
+    transportTypes = []
+  end if
 
   for each transportType in m.top.transportTypes
     if transportType = "log_PrintTransport"

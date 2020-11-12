@@ -33,7 +33,7 @@ function initializeLogManager(transportTypes = invalid, logLevel = invalid) as o
   m.global.addFields({ "rLog": rLog })
 
   if transportTypes = invalid
-    transportTypes = ["LogPrintTransport"]
+    transportTypes = ["log_PrintTransport"]
   end if
 
   if logLevel = invalid
