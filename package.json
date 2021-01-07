@@ -10,7 +10,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "brighterscript": "^0.15.0",
+    "brighterscript": "^0.23.1",
     "ropm": "^0.5.0"
   },
   "repository": {
