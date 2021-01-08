@@ -59,7 +59,7 @@ In your .xml file
 
 ### initialize the logging framework
 
-You initialize the log manager, by calling `log_initializeLogManager`, with 2 arguments:
+You initialize the log manager, by calling `Log.initializeLogManager`, with 2 arguments:
 
  1. An array of log transports. Built in transports are:
    - log_PrintTransport
@@ -76,7 +76,7 @@ You initialize the log manager, by calling `log_initializeLogManager`, with 2 ar
 e.g.
 
 ```
-  m.top._rLog = log_initializeLogManager(["log_PrintTransport", "log_ScreenTransport"], 5)
+  m.top._rLog = Log.initializeLogManager(["log_PrintTransport", "log_ScreenTransport"], 5)
 ```
 
 Do this as early as possible in your application, once sceneGraph is running. 

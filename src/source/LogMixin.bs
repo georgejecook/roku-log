@@ -1,5 +1,3 @@
-'@Namespace rLogM rLogMixin
-
 ' /**
 '  * @member initializeLogManager
 '  * @memberof module:LogMixin
@@ -40,8 +38,8 @@ function initializeLogManager(transportTypes = invalid, logLevel = invalid) as o
     logLevel = 2
   end if
 
-  rLog.transportTypes = transportTypes
-  rLog.logLevel = logLevel
+  rlog.transportTypes = transportTypes
+  rlog.logLevel = logLevel
   return rLog
 end function
 
@@ -77,13 +75,13 @@ function registerLogger(name = "general", target = invalid) as void
       name = "General"
     end if
 
-    if m.rLog.isFiltering
-      if m.rLog.logLevel < levelNum or (m.rLog.includeFilters.count() > 0 and m.rLog.includeFilters[name] = invalid) or (m.rLog.excludeFilters.count() > 0 and m.rLog.excludeFilters[name] <> invalid)
+    if m.rlog.isFiltering
+      if m.rlog.logLevel < levelNum or (m.rlog.includeFilters.count() > 0 and m.rlog.includeFilters[name] = invalid) or (m.rlog.excludeFilters.count() > 0 and m.rlog.excludeFilters[name] <> invalid)
         return 
       end if
     end if
 
-    logMode = m.rLog.logMode
+    logMode = m.rlog.logMode
     if logMode = 1
       print level ; " " ; toString(message) ; " " ; toString(value) ; " " ; toString(value2) ; " " ; toString(value3) 
       print " " ; toString(value5) ; " " ; toString(value6) ; " " ; toString(value7) ; " " ; toString(value8) ; " " ; toString(value9) 
@@ -94,7 +92,7 @@ function registerLogger(name = "general", target = invalid) as void
         print text
       end if
 
-      for each transport in m.rLog.transports
+      for each transport in m.rlog.transports
         transport.callFunc("logItem", name, levelNum, text)
       end for
     end if
