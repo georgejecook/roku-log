@@ -7,7 +7,7 @@ function Init() as void
   m.top.transports = []
   m.top.includeFilters = {}
   m.top.excludeFilters = {}
-  m.top.observeField("transportTypes", "log_onTransportsChange")
+  m.top.observeFieldScoped("transportTypes", "log_onTransportsChange")
   m.top.transportTypes = ["log_PrintTransport"]
 
 end function

@@ -23,12 +23,13 @@
 '  *                1 - WARN
 '  *                2 - INFO and METHOD
 '  *                3 - VERBOSE
-'  *                4 - DEBUG 
+'  *                4 - DEBUG
 '  * @returns {RLog} RLog instance for further configuration
 '  */
 function initializeLogManager(transportTypes = invalid, logLevel = invalid) as object
   rLog = CreateObject("roSGNode", "Log")
   m.global.addFields({ "rLog": rLog })
+  m.top.getScene().addFields({ "rLog": rLog })
 
   if transportTypes = invalid
     transportTypes = ["log_PrintTransport"]
@@ -63,10 +64,12 @@ function registerLogger(name = "general", target = invalid) as void
   target.rLog_name = name
 
   if target.rLog <> invalid
-    return 
+    return
   end if
 
   target.rLog = getLogInstance()
+  target.rLog.includeFilters = {}
+  target.rLog.excludeFilters = {}
   target.logImpl = function(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
     if m.rLog = invalid then return
     if m.rLog_name <> invalid
@@ -77,14 +80,14 @@ function registerLogger(name = "general", target = invalid) as void
 
     if m.rlog.isFiltering
       if m.rlog.logLevel < levelNum or (m.rlog.includeFilters.count() > 0 and m.rlog.includeFilters[name] = invalid) or (m.rlog.excludeFilters.count() > 0 and m.rlog.excludeFilters[name] <> invalid)
-        return 
+        return
       end if
     end if
 
     logMode = m.rlog.logMode
     if logMode = 1
-      print level ; " " ; toString(message) ; " " ; toString(value) ; " " ; toString(value2) ; " " ; toString(value3) 
-      print " " ; toString(value5) ; " " ; toString(value6) ; " " ; toString(value7) ; " " ; toString(value8) ; " " ; toString(value9) 
+      print level ; " " ; toString(message) ; " " ; toString(value) ; " " ; toString(value2) ; " " ; toString(value3)
+      print " " ; toString(value5) ; " " ; toString(value6) ; " " ; toString(value7) ; " " ; toString(value8) ; " " ; toString(value9)
     else
       text = level + " " + toString(message) + " " + toString(value) + " " + toString(value2) + " " + toString(value3) + " " + toString(value4) + " " + toString(value5) + " " + toString(value6) + " " + toString(value7) + " " + toString(value8) + " " + toString(value9)
 
@@ -131,10 +134,14 @@ function registerLogger(name = "general", target = invalid) as void
 end function
 
 function getLogInstance()
-  if m.global <> invalid
+  if m.global <> invalid and m.global.rLog <> invalid
     return m.global.rLog
   end if
 
+  if m.top.getScene() <> invalid
+    'back up to help with some testing scenarios one might encounter
+    return m.top.getScene().rLog
+  end if
   return invalid
 end function
 
