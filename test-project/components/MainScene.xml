@@ -9,8 +9,7 @@
   <interface>
     <field
         id='fire'
-        alias='timer.fire'
-        onChange='onTimerFire' />
+        alias='timer.fire'/>
   </interface>
   <children>
     <Timer

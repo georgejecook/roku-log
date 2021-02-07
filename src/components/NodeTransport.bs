@@ -4,6 +4,7 @@
 '  */
 
 function Init() as void
+  m.top.observeField("updateNow", "updateLogOutput")
 end function
 
 function updateLogOutput() as void
@@ -12,14 +13,14 @@ function updateLogOutput() as void
   logText = ""
   jsonTexts = []
   while index >= 0
-    item = m.items[index] 
+    item = m.items[index]
 
     loggedTexts.push(item.text)
     jsonTexts.push(item.text)
     logText += chr(10) + "\n" + item.text
     index--
   end while
-  
+
   m.top._rawItems = m.items
   m.top._logText = logText
   m.top._logOutput = loggedTexts

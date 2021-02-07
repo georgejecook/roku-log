@@ -1,5 +1,7 @@
 function init() as void
   createObject("roSGNode", "TrackerTask")
+  m.top.observeField("fire", "onTimerFire")
+
   m.textIndex = 0
   m.label = m.top.findNode("label")
   configureLabel()
