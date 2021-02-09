@@ -1,6 +1,6 @@
 {
   "name": "roku-log",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Simple logging library for roku.",
   "directories": {
     "doc": "docs"
@@ -9,7 +9,7 @@
     "dist/**/!(manifest)*"
   ],
   "devDependencies": {
-    "brighterscript": "^0.28.2",
+    "brighterscript": "^0.30.4",
     "ropm": "^0.5.0"
   },
   "repository": {
