@@ -1,0 +1,148 @@
+' /**
+'  * @member initializeLogManager
+'  * @memberof module:LogMixin
+'  * @instance
+'  * @description creates Log manager, and places it on global
+'  *              expects to have access to globalNode on m.global (i.e. from within an SG control)
+'  * @param {transportTypes} array of transportsType names.
+'  *      you can provide your own transport;
+'  *      it just hast to be a node that implements the interface function:
+'  *
+'  *      function logItem(name, levelNum, text) as void
+'  *
+'  *      built in transports:
+'  *      LogNodeTransport - output goes straight to debug print
+'  *      LogScreenTransport - output is stored on
+'  *      LogPrintTransport - output goes to console
+'  *
+'  * @param {integer} logLevel
+'  *                level of the logging
+'  *                0 - ERROR
+'  *                1 - WARN
+'  *                2 - INFO and METHOD
+'  *                3 - VERBOSE
+'  *                4 - DEBUG
+'  * @returns {RLog} RLog instance for further configuration
+'  */
+function initializeLogManager(transportTypes = invalid, logLevel = invalid) as object
+  rLog = CreateObject("roSGNode", "Log")
+  m.global.addFields({ "rLog": rLog })
+  m.top.getScene().addFields({ "rLog": rLog })
+
+  if transportTypes = invalid
+    transportTypes = ["log_PrintTransport"]
+  end if
+
+  if logLevel = invalid
+    logLevel = 2
+  end if
+
+  rlog.transportTypes = transportTypes
+  rlog.logLevel = logLevel
+  return rLog
+end function
+
+function getLogInstance()
+  if m.global <> invalid and m.global.rLog <> invalid
+    return m.global.rLog
+  end if
+
+  if m.top.getScene() <> invalid
+    'back up to help with some testing scenarios one might encounter
+    return m.top.getScene().rLog
+  end if
+  return invalid
+end function
+
+class Log
+  private name
+  private rLog
+
+  function new(name = "general") as void
+    m.name = name
+    m.rLog = getLogInstance()
+  end function
+
+  function logImpl(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
+
+    if m.rlog.isFiltering
+      if m.rlog.logLevel < levelNum or (m.rlog.includeFilters.count() > 0 and m.rlog.includeFilters[m.name] = invalid) or (m.rlog.excludeFilters.count() > 0 and m.rlog.excludeFilters[m.name] <> invalid)
+        return
+      end if
+    end if
+
+    logMode = m.rlog.logMode
+    if logMode = 1
+      print level ; " " ; m.toString(message) ; " " ; m.toString(value) ; " " ; m.toString(value2) ; " " ; m.toString(value3)
+      print " " ; m.toString(value5) ; " " ; m.toString(value6) ; " " ; m.toString(value7) ; " " ; m.toString(value8) ; " " ; m.toString(value9)
+    else
+      text = level + " " + m.toString(message) + " " + m.toString(value) + " " + m.toString(value2) + " " + m.toString(value3) + " " + m.toString(value4) + " " + m.toString(value5) + " " + m.toString(value6) + " " + m.toString(value7) + " " + m.toString(value8) + " " + m.toString(value9)
+
+      if logMode = 3
+        print text
+      end if
+
+      for each transport in m.rlog.transports
+        transport.callFunc("logItem", m.name, levelNum, text)
+      end for
+    end if
+  end function
+
+  function debug(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
+    if m.rLog = invalid then return
+    m.logImpl(4, "DEBUG", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+  end function
+
+  function verbose(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
+    if m.rLog = invalid then return
+    m.logImpl(3, "VERBOSE", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+  end function
+
+  function info(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
+    if m.rLog = invalid then return
+    m.logImpl(2, "INFO", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+  end function
+
+  function method(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
+    if m.rLog = invalid then return
+    m.logImpl(2, "METHOD", message, value, value2, value3, value4, value5, value6, value7, value8, value9, true)
+  end function
+
+  function warn(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
+    if m.rLog = invalid then return
+    m.logImpl(1, "WARN", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+  end function
+
+  function error(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
+    if m.rLog = invalid then return
+    m.logImpl(0, "ERROR", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+  end function
+end function
+
+function toString(value as dynamic) as string
+  valueType = type(value)
+  if valueType = "<uninitialized>"
+    return "UNINIT"
+  else if value = invalid
+    return "INVALID"
+  else if getInterface(value, "ifString") <> invalid
+    if value = "~#"
+      return ""
+    else
+      return value
+    end if
+  else if valueType = "roInt" or valueType = "roInteger" or valueType = "Integer"
+    return value.tostr()
+  else if getInterface(value, "ifFloat") <> invalid
+    return str(value).trim()
+  else if valueType = "roSGNode"
+    return "Node(" + value.subType() + ")"
+  else if valueType = "roAssociativeArray"
+    return "AA(" + formatJson(value) + ")"
+  else if valueType = "roBoolean" or valueType = "Boolean"
+    return value.tostr()
+  else
+    return ""
+  end if
+end function
+end class
