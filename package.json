@@ -1,6 +1,6 @@
 {
   "name": "roku-log",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Simple logging library for roku.",
   "directories": {
     "doc": "docs"
@@ -9,7 +9,8 @@
     "dist/**/!(manifest)*"
   ],
   "devDependencies": {
-    "brighterscript": "^0.30.4",
+    "brighterscript": "file:../../vsc/brighterscript",
+    "rooibos-roku": "file:../../rooibos/bsc-plugin",
     "ropm": "^0.5.0"
   },
   "repository": {
@@ -42,7 +43,11 @@
     "prefixMatching": "expanded"
   },
   "scripts": {
-    "build": "npx bsc",
-    "test": "cd tests && npx ropm copy && bsc --project ./bsconfig.json"
+    "local": "ts-node scripts/install-maestro-local.js",
+    "remote": "ts-node scripts/install-maestro-remote.js",
+    "build": "node scripts/run.js && ts-node scripts/move-generated-files.js",
+    "build-remote": "npm run remote && npm run build",
+    "build-local": "npm run local && npm run build",
+    "build-test": "node scripts/run-test.js"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "rootDir": "src",
+  "files": [
+    "manifest",
+    "source/**/*.*",
+    "components/**/*.*",
+    "!**/*.spec.*"
+  ],
+  "autoImportComponentScript": true,
+  "createPackage": false,
+  "stagingFolderPath": "dist",
+  "diagnosticFilters": [
+    {
+      "src": "**/roku_modules/**/*.*"
+    },
+    {
+      "src": "**/WhiteList.xml",
+      "codes": [
+        1067
+      ]
+    },
+    1120
+  ],
+  "emitDefinitions": true,
+  "plugins": [
+  ],
+  "sourceMap": true
+}

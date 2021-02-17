@@ -1,26 +1,11 @@
 {
-  "rootDir": "src",
+  "stagingFolderPath": "build",
   "files": [
     "manifest",
     "source/**/*.*",
     "components/**/*.*"
   ],
-  "autoImportComponentScript": true,
-  "createPackage": false,
-  "stagingFolderPath": "build",
-  "diagnosticFilters": [
-    {
-      "src": "**/roku_modules/**/*.*"
-    },
-    {
-      "src": "**/WhiteList.xml",
-      "codes": [
-        1067
-      ]
-    },
-    1120
-  ],
-  "emitDefinitions": true,
+  "extends": "bsconfig.json",
   "plugins": [
     "rooibos-roku"
   ],
@@ -39,6 +24,5 @@
   "rokuLog": {
     "strip": false,
     "insertPkgPath": true
-  },
-  "sourceMap": true
+  }
 }

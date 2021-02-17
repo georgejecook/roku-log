@@ -54,7 +54,7 @@ function getLogInstance()
   return invalid
 end function
 
-class Log
+class Logger
   private name
   private rLog
 
@@ -63,7 +63,7 @@ class Log
     m.rLog = getLogInstance()
   end function
 
-  function logImpl(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
+  function log(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
 
     if m.rlog.isFiltering
       if m.rlog.logLevel < levelNum or (m.rlog.includeFilters.count() > 0 and m.rlog.includeFilters[m.name] = invalid) or (m.rlog.excludeFilters.count() > 0 and m.rlog.excludeFilters[m.name] <> invalid)
@@ -90,59 +90,58 @@ class Log
 
   function debug(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
     if m.rLog = invalid then return
-    m.logImpl(4, "DEBUG", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+    m.log(4, "DEBUG", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
   end function
 
   function verbose(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
     if m.rLog = invalid then return
-    m.logImpl(3, "VERBOSE", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+    m.log(3, "VERBOSE", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
   end function
 
   function info(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
     if m.rLog = invalid then return
-    m.logImpl(2, "INFO", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+    m.log(2, "INFO", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
   end function
 
   function method(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
     if m.rLog = invalid then return
-    m.logImpl(2, "METHOD", message, value, value2, value3, value4, value5, value6, value7, value8, value9, true)
+    m.log(2, "METHOD", message, value, value2, value3, value4, value5, value6, value7, value8, value9, true)
   end function
 
   function warn(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
     if m.rLog = invalid then return
-    m.logImpl(1, "WARN", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+    m.log(1, "WARN", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
   end function
 
   function error(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
     if m.rLog = invalid then return
-    m.logImpl(0, "ERROR", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
+    m.log(0, "ERROR", message, value, value2, value3, value4, value5, value6, value7, value8, value9)
   end function
-end function
 
-function toString(value as dynamic) as string
-  valueType = type(value)
-  if valueType = "<uninitialized>"
-    return "UNINIT"
-  else if value = invalid
-    return "INVALID"
-  else if getInterface(value, "ifString") <> invalid
-    if value = "~#"
-      return ""
+  function toString(value as dynamic) as string
+    valueType = type(value)
+    if valueType = "<uninitialized>"
+      return "UNINIT"
+    else if value = invalid
+      return "INVALID"
+    else if getInterface(value, "ifString") <> invalid
+      if value = "~#"
+        return ""
+      else
+        return value
+      end if
+    else if valueType = "roInt" or valueType = "roInteger" or valueType = "Integer"
+      return value.tostr()
+    else if getInterface(value, "ifFloat") <> invalid
+      return str(value).trim()
+    else if valueType = "roSGNode"
+      return "Node(" + value.subType() + ")"
+    else if valueType = "roAssociativeArray"
+      return "AA(" + formatJson(value) + ")"
+    else if valueType = "roBoolean" or valueType = "Boolean"
+      return value.tostr()
     else
-      return value
+      return ""
     end if
-  else if valueType = "roInt" or valueType = "roInteger" or valueType = "Integer"
-    return value.tostr()
-  else if getInterface(value, "ifFloat") <> invalid
-    return str(value).trim()
-  else if valueType = "roSGNode"
-    return "Node(" + value.subType() + ")"
-  else if valueType = "roAssociativeArray"
-    return "AA(" + formatJson(value) + ")"
-  else if valueType = "roBoolean" or valueType = "Boolean"
-    return value.tostr()
-  else
-    return ""
-  end if
-end function
+  end function
 end class
