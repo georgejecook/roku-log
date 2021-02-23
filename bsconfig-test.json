@@ -1,22 +1,12 @@
 {
   "stagingFolderPath": "build",
-  "files": [
-    "manifest",
-    "source/**/*.*",
-    "components/**/*.*"
-  ],
+  "files": ["manifest", "source/**/*.*", "components/**/*.*"],
   "extends": "bsconfig.json",
-  "plugins": [
-    "rooibos-roku"
-  ],
+  "plugins": ["rooibos-roku"],
   "rooibos": {
     "isRecordingCodeCoverage": false,
     "testsFilePattern": null,
-    "tags": [
-      "!integration",
-      "!deprecated",
-      "!fixme"
-    ],
+    "tags": ["!integration", "!deprecated", "!fixme"],
     "showOnlyFailures": true,
     "catchCrashes": true,
     "lineWidth": 70
@@ -24,5 +14,8 @@
   "rokuLog": {
     "strip": false,
     "insertPkgPath": true
+  },
+  "maestro": {
+    "excludeFilters": ["**/roku_modules/**/*", "**/rooibos/**/*"]
   }
 }
