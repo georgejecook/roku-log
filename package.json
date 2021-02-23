@@ -1,6 +1,6 @@
 {
   "name": "roku-log",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Simple logging library for roku.",
   "directories": {
     "doc": "docs"
@@ -9,8 +9,8 @@
     "dist/**/!(manifest)*"
   ],
   "devDependencies": {
-    "brighterscript": "file:../../vsc/brighterscript",
-    "rooibos-roku": "file:../../rooibos/bsc-plugin",
+    "brighterscript": "^0.32.2",
+    "rooibos-roku": "^4.1.0",
     "ropm": "^0.5.0"
   },
   "repository": {
