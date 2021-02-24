@@ -1,53 +1,57 @@
 {
-  "name": "roku-log",
-  "version": "0.4.1",
-  "description": "Simple logging library for roku.",
-  "directories": {
-    "doc": "docs"
-  },
-  "files": [
-    "dist/**/!(manifest)*"
-  ],
-  "devDependencies": {
-    "brighterscript": "^0.32.2",
-    "rooibos-roku": "^4.1.0",
-    "ropm": "^0.5.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/georgejecook/roku-log.git"
-  },
-  "keywords": [
-    "ropm",
-    "brightscript",
-    "mvvm",
-    "framework",
-    "fun"
-  ],
-  "author": "George Cook",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/georgejecook/roku-log/issues"
-  },
-  "homepage": "https://github.com/georgejecook/roku-log#readme",
-  "ts-node": {
-    "transpileOnly": true,
-    "compileOptions": {
-      "incremental": true,
-      "allowJs": false
+    "name": "roku-log",
+    "version": "0.4.1",
+    "description": "Simple logging library for roku.",
+    "directories": {
+        "doc": "docs"
+    },
+    "files": [
+        "dist/**/!(manifest)*"
+    ],
+    "devDependencies": {
+        "brighterscript": "^0.32.2",
+        "fs-extra": "^7.0.1",
+        "maestro-roku-bsc-plugin": "^0.2.6",
+        "roku-log-bsc-plugin": "^0.2.1",
+        "rooibos-roku": "^4.1.0",
+        "ropm": "^0.5.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/georgejecook/roku-log.git"
+    },
+    "keywords": [
+        "ropm",
+        "brightscript",
+        "mvvm",
+        "framework",
+        "fun"
+    ],
+    "author": "George Cook",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/georgejecook/roku-log/issues"
+    },
+    "homepage": "https://github.com/georgejecook/roku-log#readme",
+    "ts-node": {
+        "transpileOnly": true,
+        "compileOptions": {
+            "incremental": true,
+            "allowJs": false
+        }
+    },
+    "ropm": {
+        "rootDir": "src",
+        "packageRootDir": "dist",
+        "prefixMatching": "expanded"
+    },
+    "scripts": {
+        "local": "ts-node scripts/install-local.js",
+        "remote": "ts-node scripts/install-npm.js",
+        "build": "node scripts/run.js && ts-node scripts/move-generated-files.js",
+        "build-remote": "npm run remote && npm run build",
+        "build-local": "npm run local && npm run build",
+        "build-test": "node scripts/run-test.js",
+        "rc": "ropm copy && ts-node scripts/fix-ropm-issues.js"
     }
-  },
-  "ropm": {
-    "rootDir": "src",
-    "packageRootDir": "dist",
-    "prefixMatching": "expanded"
-  },
-  "scripts": {
-    "local": "ts-node scripts/install-maestro-local.js",
-    "remote": "ts-node scripts/install-maestro-remote.js",
-    "build": "node scripts/run.js && ts-node scripts/move-generated-files.js",
-    "build-remote": "npm run remote && npm run build",
-    "build-local": "npm run local && npm run build",
-    "build-test": "node scripts/run-test.js"
-  }
 }
