@@ -73,8 +73,7 @@ class Logger
 
     logMode = m.rlog.logMode
     if logMode = 1
-      print level ; " " ; m.toString(message) ; " " ; m.toString(value) ; " " ; m.toString(value2) ; " " ; m.toString(value3)
-      print " " ; m.toString(value5) ; " " ; m.toString(value6) ; " " ; m.toString(value7) ; " " ; m.toString(value8) ; " " ; m.toString(value9)
+      print level ; " " ; m.toString(message) ; " " ; m.toString(value) ; " " ; m.toString(value2) ; " " ; m.toString(value3) ; " " ; m.toString(value4)  " ";  m.toString(value5) ; " " ; m.toString(value6) ; " " ; m.toString(value7) ; " "  ; m.toString(value8) ; " " + m.toString(value9)
     else
       text = level + " " + m.toString(message) + " " + m.toString(value) + " " + m.toString(value2) + " " + m.toString(value3) + " " + m.toString(value4) + " " + m.toString(value5) + " " + m.toString(value6) + " " + m.toString(value7) + " " + m.toString(value8) + " " + m.toString(value9)
 
