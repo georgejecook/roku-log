@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "sl": "file:../"
-  },
-  "devDependencies": {
-    "ropm": "^0.6.3"
-  }
-}
