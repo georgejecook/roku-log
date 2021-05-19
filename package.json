@@ -9,6 +9,7 @@
         "dist/**/!(manifest)*"
     ],
     "devDependencies": {
+        "brighterscript": "^0.37.4",
         "fs-extra": "^7.0.1",
         "maestro-roku-bsc-plugin": "^0.3.2",
         "roku-log-bsc-plugin": "^0.2.1",
