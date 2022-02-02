@@ -29,13 +29,13 @@ ropm install log@npm:roku-log
 
 *note:* It is recommended that you install with the `log` prefix. All instructions here assume this setup.
 
-## Usage
+## Import the logMixin script
 
-### Import the logMixin script
+## brightscript
 
-The logMixin.brs script must be imported into all views that use the logging api:
+The `logMixin.brs` script must be imported into all views that use the logging api:
 
-#### brighterscript
+## brighterscript
 
 In your .bs file:
 
@@ -43,14 +43,15 @@ In your .bs file:
 import "pkg:/source/roku_modules/log/LogMixin.brs"
 ```
 
-### initialize the logging framework
+## initialize the logging framework
 
 You initialize the log manager, by calling `log.initializeLogManager`, with 2 arguments:
 
- 1. An array of log transports. Built in transports are:
-   - log_PrintTransport
-   - log_ScreenTransport
-   - log_NodeTransport
+ 1. An array of strings, with names of transports transports. Built in transports are:
+   - log_PrintTransport - prints to telnet output
+   - log_ScreenTransport - prints to an overlaid screen view
+   - log_NodeTransport - prints to a node, you can check in RALE
+   - log_HTTPTransport - posts logs as json lines, to a http url
 
  2. The log level
    - 0 error
@@ -61,17 +62,104 @@ You initialize the log manager, by calling `log.initializeLogManager`, with 2 ar
 
 e.g.
 
+**Brighterscript**
+
 ```
   m.top._rLog = log.initializeLogManager(["log_PrintTransport", "log_ScreenTransport"], 5)
+```
+**Brightscript**
+
+```
+  m.top._rLog = log_initializeLogManager(["log_PrintTransport", "log_ScreenTransport"], 5)
 ```
 
 Do this as early as possible in your application, once sceneGraph is running.
 
+## Configuring transports
 
-### Register loggers for each screen/view/class
+After you have called initializeLogManager, you can access the transports from `m.top._rLog.transports[index]`, where index is the index of your transports you passed in _minus_ the printTransport, which, for efficiency reason's is a special, built in transport.
+
+### ScreenTransport:
+
+You can set the following properties:
+
+ - maxVisibleLines
+
+### HTTPTransport
+
+The http transport POSTS a json blob, containing the logged lines as an array, as follows:
+```
+{lines: ["array of lines of text"]}
+```
+
+You can set the following properties:
+
+- maxLinesBeforeSending
+- maxSecondsBeforeSending
+- url
+
+#### Simple express logger:
+
+You can make a simple app for printing out logged output from the HTTP logger with the following code:
+
+```
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const port = 8000
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+let i = 0;
+let date = new Date();
+app.post('/', function (req, res) {
+  for (let l of req.body.lines) {
+    console.log(makeShortDate() + ' ' + l.replace('file:///home/george/hope/nba/nba-roku/src', ''));
+  }
+})
+
+makeShortDate = () => {
+  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+```
+
+### Custom transports
+
+To make your own transports:
+ - Create a node that extends `Group`
+ - Include a `logItem` function, e.g.  `<function name='logItem' />`
+ - Add and configure any views you need to your node
+ - Implement the `logItem` function e.g.
+
+```
+function logItem(name, levelNum, text)
+  m.displayedLines.push(left(text, 100))
+
+  if m.displayedLines.count() > m.top.maxVisibleLines
+    m.displayedLines.delete(0)
+  end if
+
+  m.scrollableText.text = m.displayedLines.join(chr(10))
+end function
+```
+
+## Register loggers for each screen/view/class
 
 In each of your components, classes, etc you wish to log, create a logger. For example:
 
+**Brigherscript**
 ```
   class AnalyticsManager
     function new()
@@ -81,9 +169,17 @@ In each of your components, classes, etc you wish to log, create a logger. For e
   end class
 ```
 
+**Brightscript**
+```
+    function init()
+      m.log = log_Logger("AnalyticsManager")
+    end function
+```
+
+
 Once you have registered a logger, you can invoke the logging methods.
 
-### logging
+## logging
 
 Once you have created a log instance, you can call the following functions:
 
@@ -109,7 +205,7 @@ m.log.info("Received data", json.result, "http call", m.top.uri)
 Note, you do not have to worry about converting values into string; `roku-log` will do this for you safely.
 
 
-# PreProcessing logs to remove in prod, or add line numbers:
+# PreProcessing logs to remove in prod, or add line numbers (requires transpilation with bsc - brighterscript compiler):
 
 To get the most out of the `roku-log`, you should use bsc to compile your project, and use the `roku-log-bsc-plugin` by:
 

@@ -1,0 +1,30 @@
+' /**
+'  * @module LogScreenTransport
+'  * @description implementation of mLog screen transport
+'  */
+
+function init()
+  m.lines = []
+  m.texts = []
+  m.timeSpan = createObject("roTimeSpan")
+end function
+
+function logItem(name, levelNum, text)
+  m.texts.push(text)
+  if m.texts.count() > m.top.maxLinesBeforeSending or (m.timeSpan.TotalSeconds() > m.top.maxSecondsBeforeSending and m.texts.count() > 0)
+    m.timeSpan.mark()
+    m.requestTask = createObject("roSGNode", "mc_RequestTask")
+    m.requestTask.args = {
+      method: "POST"
+      url: m.top.url
+      otherArgs: {
+        json: {
+          lines: m.texts
+        }
+      }
+    }
+    m.requestTask.control = "RUN"
+    m.texts = []
+  end if
+
+end function

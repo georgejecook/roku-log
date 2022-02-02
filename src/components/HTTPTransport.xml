@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component
+    name='HTTPTransport'
+    extends='Group'>
+
+  <interface>
+    <field
+        id='maxLinesBeforeSending'
+        type='integer'
+        value='20' />
+    <field
+        id='maxSecondsBeforeSending'
+        type='integer'
+        value='5' />
+    <field
+        id='url'
+        type='string'
+        value='' />
+    <function name='logItem' />
+  </interface>
+
+  <children>
+  </children>
+</component>
