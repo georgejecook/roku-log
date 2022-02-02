@@ -16,7 +16,8 @@
       <Rectangle
           id='background'
           translation='[0,380]'
-          color='#aaaaaa'
+          color='#000000'
+          opacity='0.8'
           width='1920'
           height='450' />
       <ScrollableText
@@ -24,7 +25,7 @@
           translation='[40, 390]'
           width='1880'
           height='430'
-          color='#000000'
+          color='#ffffff'
           vertAlign='top'
           horizAlign='left'
           lineSpacing='8'
