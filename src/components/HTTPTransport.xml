@@ -16,7 +16,17 @@
         id='url'
         type='string'
         value='' />
+    <field
+        id='sendNow'
+        type='boolean'
+        value='false'
+        onChange='sendLogsNow' />
+    <field
+        id='sendAutomatically'
+        type='boolean'
+        value='true' />
     <function name='logItem' />
+    <function name='sendLogsNow' />
   </interface>
 
   <children>

@@ -36,8 +36,16 @@
         id='logMode'
         type='integer'
         value='0' />
+    <field
+        id='includeDate'
+        type='boolean'
+        value='false' />
+    <field
+        id='dateText'
+        type='string'
+        value='' />
 
-    <!-- 
+    <!--
       list of tranportTypes.
       you can provide your own transport;
       it just hast to be a node that implements the interface function:
@@ -56,6 +64,7 @@
     <field
         id='transports'
         type='array' />
+
 
   </interface>
 
