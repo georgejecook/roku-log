@@ -1,6 +1,6 @@
 {
   "name": "roku-log",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Simple logging library for roku.",
   "directories": {
     "doc": "docs"
