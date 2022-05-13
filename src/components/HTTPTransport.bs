@@ -23,7 +23,7 @@ function logItem(name, levelNum, text)
 
 end function
 
-function sendLogsNow()
+function sendLogsNow(args = invalid)
   'note - this presently require maestro to work(!)
   'bs:disable-next-line
   m.requestTask = createObject("roSGNode", "mc_RequestTask")

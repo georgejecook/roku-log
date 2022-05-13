@@ -20,6 +20,7 @@
         id='sendNow'
         type='boolean'
         value='false'
+        alwaysNotify='true'
         onChange='sendLogsNow' />
     <field
         id='sendAutomatically'
