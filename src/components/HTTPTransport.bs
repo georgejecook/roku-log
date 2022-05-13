@@ -11,20 +11,31 @@ end function
 
 function logItem(name, levelNum, text)
   m.texts.push(text)
-  if m.texts.count() > m.top.maxLinesBeforeSending or (m.timeSpan.TotalSeconds() > m.top.maxSecondsBeforeSending and m.texts.count() > 0)
-    m.timeSpan.mark()
-    m.requestTask = createObject("roSGNode", "mc_RequestTask")
-    m.requestTask.args = {
-      method: "POST"
-      url: m.top.url
-      otherArgs: {
-        json: {
-          lines: m.texts
-        }
-      }
-    }
-    m.requestTask.control = "RUN"
-    m.texts = []
+  if m.top.sendAutomatically = true
+    if m.texts.count() > m.top.maxLinesBeforeSending or (m.timeSpan.TotalSeconds() > m.top.maxSecondsBeforeSending and m.texts.count() > 0)
+      m.timeSpan.mark()
+      sendLogsNow()
+      m.texts = []
+    end if
+  else if m.texts.count() >= m.top.maxLinesBeforeSending
+    m.texts.shift()
   end if
 
+end function
+
+function sendLogsNow()
+  'note - this presently require maestro to work(!)
+  'bs:disable-next-line
+  m.requestTask = createObject("roSGNode", "mc_RequestTask")
+  m.requestTask.args = {
+    method: "POST"
+    url: m.top.url
+    otherArgs: {
+      json: {
+        lines: m.texts
+      }
+    }
+  }
+  m.requestTask.control = "RUN"
+  m.texts = []
 end function

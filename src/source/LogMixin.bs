@@ -24,7 +24,7 @@
 '  *                4 - DEBUG
 '  * @returns {RLog} RLog instance for further configuration
 '  */
-function initializeLogManager(transportTypes = invalid, logLevel = invalid) as object
+function initializeLogManager(transportTypes = invalid, logLevel = invalid, includeDate = false) as object
   rLog = CreateObject("roSGNode", "Log")
   m.global.addFields({ "rLog": rLog })
   m.top.getScene().addFields({ "rLog": rLog })
@@ -39,6 +39,7 @@ function initializeLogManager(transportTypes = invalid, logLevel = invalid) as o
 
   rlog.transportTypes = transportTypes
   rlog.logLevel = logLevel
+  rlog.includeDate = includeDate
   return rLog
 end function
 
@@ -61,27 +62,37 @@ class Logger
   function new(name = "general") as void
     m.name = name
     m.rLog = getLogInstance()
+    m.rLog_isFiltering = m.rLog.isFiltering
+    m.rLog_logLevel = m.rLog.logLevel
+    m.rLog_includeFilters = m.rLog.includeFilters
+    m.rLog_excludeFilters = m.rLog.excludeFilters
+    m.rLog_includeDate = m.rLog.includeDate
+    m.rLog_logMode = m.rLog.logMode
+    m.rLog_transports = m.rLog.transports
   end function
 
   function log(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
 
-    if m.rlog.isFiltering
-      if m.rlog.logLevel < levelNum or (m.rlog.includeFilters.count() > 0 and m.rlog.includeFilters[m.name] = invalid) or (m.rlog.excludeFilters.count() > 0 and m.rlog.excludeFilters[m.name] <> invalid)
+    if m.rLog_isFiltering
+      if m.rLog_logLevel < levelNum or (m.rLog_includeFilters.count() > 0 and m.rLog_includeFilters[m.name] = invalid) or (m.rLog_excludeFilters.count() > 0 and m.rLog_excludeFilters[m.name] <> invalid)
         return
       end if
     end if
 
-    logMode = m.rlog.logMode
-    if logMode = 1
+    if m.rLog_includeDate
+      level = m.rLog.dateText +" " + level
+    end if
+
+    if m.rLog_logMode = 1
       print level ; " " ; m.toString(message) ; " " ; m.toString(value) ; " " ; m.toString(value2) ; " " ; m.toString(value3) ; " " ; m.toString(value4)  " ";  m.toString(value5) ; " " ; m.toString(value6) ; " " ; m.toString(value7) ; " "  ; m.toString(value8) ; " " + m.toString(value9)
     else
       text = level + " " + m.toString(message) + " " + m.toString(value) + " " + m.toString(value2) + " " + m.toString(value3) + " " + m.toString(value4) + " " + m.toString(value5) + " " + m.toString(value6) + " " + m.toString(value7) + " " + m.toString(value8) + " " + m.toString(value9)
 
-      if logMode = 3
+      if m.rLog_logMode = 3
         print text
       end if
 
-      for each transport in m.rlog.transports
+      for each transport in m.rLog_transports
         transport.callFunc("logItem", m.name, levelNum, text)
       end for
     end if
@@ -130,7 +141,7 @@ class Logger
         return value
       end if
     else if valueType = "roInt" or valueType = "roInteger" or valueType = "Integer"
-      return value.tostr()
+      return value.toStr()
     else if getInterface(value, "ifFloat") <> invalid
       return str(value).trim()
     else if valueType = "roSGNode"
@@ -138,7 +149,7 @@ class Logger
     else if valueType = "roAssociativeArray"
       return "AA(" + formatJson(value) + ")"
     else if valueType = "roBoolean" or valueType = "Boolean"
-      return value.tostr()
+      return value.toStr()
     else
       return ""
     end if
