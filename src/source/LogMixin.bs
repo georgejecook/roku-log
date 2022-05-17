@@ -62,13 +62,19 @@ class Logger
   function new(name = "general") as void
     m.name = name
     m.rLog = getLogInstance()
-    m.rLog_isFiltering = m.rLog.isFiltering
-    m.rLog_logLevel = m.rLog.logLevel
-    m.rLog_includeFilters = m.rLog.includeFilters
-    m.rLog_excludeFilters = m.rLog.excludeFilters
-    m.rLog_includeDate = m.rLog.includeDate
-    m.rLog_logMode = m.rLog.logMode
-    m.rLog_transports = m.rLog.transports
+    if m.rLog <> invalid
+      m.rLog_isFiltering = m.rLog.isFiltering
+      m.rLog_logLevel = m.rLog.logLevel
+      m.rLog_includeFilters = m.rLog.includeFilters
+      m.rLog_excludeFilters = m.rLog.excludeFilters
+      m.rLog_includeDate = m.rLog.includeDate
+      m.rLog_logMode = m.rLog.logMode
+      m.rLog_transports = m.rLog.transports
+    else
+      m.log = function(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
+        ? " ERROR  NO LOGGER FOUND IN "; m.top
+      end function
+    end if
   end function
 
   function log(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
