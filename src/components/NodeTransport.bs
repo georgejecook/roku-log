@@ -14,7 +14,7 @@ function clearLog() as void
   m.top._rawItems = []
   m.top._logText = ""
   m.top._logOutput = []
-  m.top._jsonOutput = {}
+  m.top._jsonOutput = ""
 end function
 
 function updateLogOutput() as void
