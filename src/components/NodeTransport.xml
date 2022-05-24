@@ -1,43 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<component
-    name='NodeTransport'
-    extends='ContentNode'>
+<component name='NodeTransport' extends='ContentNode'>
   <interface>
     <!-- public fields/functions -->
-    <field
-        id='_logOutput'
-        type='stringarray' />
-    <field
-        id='_logText'
-        type='string' />
-    <field
-        id='_jsonOutput'
-        type='string' />
-    <field
-        id='_rawItems'
-        type='array' />
+    <field id='_logOutput' type='stringarray' />
+    <field id='_logText' type='string' />
+    <field id='_jsonOutput' type='string' />
+    <field id='_rawItems' type='array' />
 
     <!-- pointer to mLog -->
-    <field
-        id='mLog'
-        type='node' />
+    <field id='mLog' type='node' />
 
     <!-- check this in RALE, or via code to get the updated log text -->
-    <field
-        id='updateNow'
-        type='boolean'
-        alwaysNotify='true' />
-    <field
-        id='maxItems'
-        type='integer'
-        value='500' />
+    <field id='__updateNow' type='boolean' alwaysNotify='true' />
+    <field id='__clear' type='boolean' alwaysNotify='true' />
+    <field id='maxItems' type='integer' value='500' />
+    <field id="ascending" type="boolean" value="true" />
+
 
     <function name='logItem' />
   </interface>
 
 
-  <children>
-
-	</children>
+  <children></children>
 
 </component>

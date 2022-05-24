@@ -4,7 +4,17 @@
 '  */
 
 function Init() as void
-  m.top.observeField("updateNow", "updateLogOutput")
+  m.top.observeField("__updateNow", "updateLogOutput")
+  m.top.observeField("__clear", "clearLog")
+  m.items = []
+end function
+
+function clearLog() as void
+  m.items = []
+  m.top._rawItems = []
+  m.top._logText = ""
+  m.top._logOutput = []
+  m.top._jsonOutput = {}
 end function
 
 function updateLogOutput() as void
@@ -12,14 +22,22 @@ function updateLogOutput() as void
   loggedTexts = []
   logText = ""
   jsonTexts = []
-  while index >= 0
-    item = m.items[index]
+  if m.top.ascending = true
+    startIndex = 0
+    endIndex = m.items.count() - 1
+    direction = 1
+  else
+    startIndex = m.items.count() - 1
+    endIndex = 0
+    direction = -1
+  end if
 
+  for index = startIndex to endIndex step direction
+    item = m.items[index]
     loggedTexts.push(item.text)
     jsonTexts.push(item.text)
     logText += chr(10) + "\n" + item.text
-    index--
-  end while
+  end for
 
   m.top._rawItems = m.items
   m.top._logText = logText
@@ -31,6 +49,6 @@ function logItem(name, levelNum, text)
   if m.items.count() > m.top.maxItems
     m.items.delete(0)
   end if
-  item = { "level": level, "text": text, "name": name }
+  item = { "level": levelNum, "text": text, "name": name }
   m.items.push(item)
 end function
