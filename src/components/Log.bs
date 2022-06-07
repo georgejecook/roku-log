@@ -8,13 +8,13 @@ function Init() as void
   m.top.includeFilters = {}
   m.top.excludeFilters = {}
   m.top.observeFieldScoped("transportTypes", "log_onTransportsChange")
+  m.top.observeFieldScoped("includeDate", "log_onIncludeDate")
   m.top.transportTypes = ["log_PrintTransport"]
   m.date = createObject("roDateTime")
   m.date.toLocalTime()
   m.dateTimer = createObject("roSGNode", "Timer")
   m.dateTimer.repeat = true
   m.dateTimer.duration = 0.01
-  m.dateTimer.control = "start"
   m.dateTimer.observeFieldScoped("fire", "log_onDateTimerFire")
 end function
 
@@ -84,4 +84,12 @@ function log_onDateTimerFire()
   end if
   timeText = hours + ":" + minutes + ":" + seconds
   m.top.dateText = timeText
+end function
+
+function log_onIncludeDate()
+  if m.top.includeDate
+    m.dateTimer.control = "start"
+  else
+    m.dateTimer.control = "stop"
+  end if
 end function
