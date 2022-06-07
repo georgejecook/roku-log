@@ -37,6 +37,8 @@ function initializeLogManager(transportTypes = invalid, logLevel = invalid, incl
     logLevel = 2
   end if
 
+  rlog.includeFilters = {}
+  rlog.excludeFilters = {}
   rlog.transportTypes = transportTypes
   rlog.logLevel = logLevel
   rlog.includeDate = includeDate
