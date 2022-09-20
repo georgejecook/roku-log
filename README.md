@@ -3,4 +3,4 @@
 [![GitHub](https://img.shields.io/github/release/georgejecook/roku-log.svg?style=flat-square)](https://github.com/georgejecook/roku-log/releases)
 [![NPM Version](https://badge.fury.io/js/roku-log.svg?style=flat)](https://npmjs.org/package/roku-log)
 
-See the [wiki](https://github.com/georgejecook/roku-log/wiki) for documentation.
+See the [docs](docs/Home.md) for documentation.
