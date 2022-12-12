@@ -113,7 +113,10 @@ class Logger
     end if
   end function
 
-  function increaseIndent() as void
+  function increaseIndent(title = invalid as string) as void
+    if title <> invalid
+      m.info(">>  ", title, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    end if
     m._changeIndent(1)
   end function
 
