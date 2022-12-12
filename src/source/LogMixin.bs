@@ -28,6 +28,8 @@ function initializeLogManager(transportTypes = invalid, logLevel = invalid, incl
   rLog = CreateObject("roSGNode", "Log")
   m.global.addFields({ "rLog": rLog })
   m.top.getScene().addFields({ "rLog": rLog })
+  m.global.addFields({ "logIndentText": "" })
+  m.global.addFields({ "logIndent": 0 })
 
   if transportTypes = invalid
     transportTypes = ["log_PrintTransport"]
@@ -43,6 +45,10 @@ function initializeLogManager(transportTypes = invalid, logLevel = invalid, incl
   rlog.logLevel = logLevel
   rlog.includeDate = includeDate
   return rLog
+end function
+
+function rlog_global()
+  return m.global
 end function
 
 function getLogInstance()
@@ -74,7 +80,7 @@ class Logger
       m.rLog_transports = m.rLog.transports
     else
       m.log = function(levelNum, level, message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#", isMethod = false) as void
-        ? " ERROR  NO LOGGER FOUND IN "; m.top
+        ? " ERROR  NO LOGGER FOUND IN " m.top
       end function
     end if
   end function
@@ -88,13 +94,14 @@ class Logger
     end if
 
     if m.rLog_includeDate
-      level = m.rLog.dateText +" " + level
+      level = m.rLog.dateText + " " + level
     end if
 
+    g = rlog_global()
     if m.rLog_logMode = 1
-      print level ; " " ; m.toString(message) ; " " ; m.toString(value) ; " " ; m.toString(value2) ; " " ; m.toString(value3) ; " " ; m.toString(value4)  " ";  m.toString(value5) ; " " ; m.toString(value6) ; " " ; m.toString(value7) ; " "  ; m.toString(value8) ; " " + m.toString(value9)
+      print g.logIndentText + level " " m.toString(message) " " m.toString(value) " " m.toString(value2) " " m.toString(value3) " " m.toString(value4) " " m.toString(value5) " " m.toString(value6) " " m.toString(value7) " " m.toString(value8) " " + m.toString(value9)
     else
-      text = level + " " + m.toString(message) + " " + m.toString(value) + " " + m.toString(value2) + " " + m.toString(value3) + " " + m.toString(value4) + " " + m.toString(value5) + " " + m.toString(value6) + " " + m.toString(value7) + " " + m.toString(value8) + " " + m.toString(value9)
+      text = g.logIndentText + level + " " + m.toString(message) + " " + m.toString(value) + " " + m.toString(value2) + " " + m.toString(value3) + " " + m.toString(value4) + " " + m.toString(value5) + " " + m.toString(value6) + " " + m.toString(value7) + " " + m.toString(value8) + " " + m.toString(value9)
 
       if m.rLog_logMode = 3
         print text
@@ -104,6 +111,37 @@ class Logger
         transport.callFunc("logItem", m.name, levelNum, text)
       end for
     end if
+  end function
+
+  function increaseIndent(title = invalid as string) as void
+    if title <> invalid
+      m.info(">>  ", title, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    end if
+    m._changeIndent(1)
+  end function
+
+  function decreaseIndent() as void
+    m._changeIndent(-1)
+  end function
+
+  function _changeIndent(delta as integer) as void
+    g = rlog_global()
+    newIndent = g.logIndent + delta
+    logIndentText = ""
+    g.logIndent = newIndent
+    for i = 0 to newIndent - 2
+      logIndentText += "  "
+    end for
+    if newIndent > 0
+      logIndentText += " | "
+    end if
+    g.logIndentText = logIndentText
+  end function
+
+  function resetIndent() as void
+    g = rlog_global()
+    g.logIndent = 0
+    g.logIndentText = ""
   end function
 
   function debug(message, value = "~#", value2 = "~#", value3 = "~#", value4 = "~#", value5 = "~#", value6 = "~#", value7 = "~#", value8 = "~#", value9 = "~#") as void
