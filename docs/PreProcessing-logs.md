@@ -11,7 +11,7 @@ If you use brighterscript transpiler , you can easily pre-process your code to r
 
 To get the most out of the `roku-log`, you should use bsc to compile your project, and use the `roku-log-bsc-plugin` by:
 
-1. `npm i roku-log-bsc-plugin --save-dev`
+1. <a name="roku-log-bsc-plugin"></a>`npm i roku-log-bsc-plugin --save-dev` 
 2.  adding the following to your bsconfig.json:
 
 ```
