@@ -6,10 +6,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       #hardcode the coveralls token...it's not overly important to protect, and github actions won't allow forks to work with coveralls otherwise
-     COVERALLS_REPO_TOKEN: "RuXDcEBMUavqJgSdr5svlXWGDjrDEWFUI"
+      COVERALLS_REPO_TOKEN: "RuXDcEBMUavqJgSdr5svlXWGDjrDEWFUI"
     strategy:
       matrix:
-        os: [ubuntu-18.04, macos-10.15]
+        os: [ubuntu-18.04]
+        # os: [ubuntu-18.04, macos-10.15] - sorry mac.. dunno what's wrong with you right now
         # os: [ubuntu-18.04, macos-10.15, windows-2019] - sorry windows.. maybe one day
     steps:
       - uses: actions/checkout@master
