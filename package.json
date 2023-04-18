@@ -9,7 +9,7 @@
     "dist/**/!(manifest)*"
   ],
   "dependencies": {
-    "bslib": "npm:@rokucommunity/bslib@^0.1.1"
+    "bslib": "@rokucommunity/bslib@^0.1.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
