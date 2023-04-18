@@ -4,6 +4,7 @@
 
 - [Import the logMixin script](#import-the-logmixin-script)
 - [Initialize the logging framework](#initialize-the-logging-framework)
+- [Roku log plugin](#roku-log-plugin)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -61,3 +62,6 @@ e.g.
 ```
 
 Do this as early as possible in your application, once sceneGraph is running.
+
+## Roku log plugin
+  *Optionally* [roku-log-bsc-plugin](PreProcessing-logs.md#roku-log-bsc-plugin) can be used.

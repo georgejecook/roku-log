@@ -20,3 +20,20 @@ m.log.info("Received data", json.result, "http call", m.top.uri)
 ```
 
 Note, you do not have to worry about converting values into string; `roku-log` will do this for you safely.
+
+### Indentation 
+
+3 new function for adding indentations: 
+  * increaseIndent - takes one _optional_ param - **title** - (default invalid) if present, it will print out a title line to help track the source of the indent.\
+
+  ![increase indent](/images/increased_indent_title.png)  
+  ![decreased indent](/images/increased_indent_title.png)
+
+  * decreaseIndent  
+   
+  ![decreased indent](/images/increased_indent.png)
+  * resetIndent
+  
+  ![reset indent](/images/indent_reset.png)
+
+  * They do exactly what they say. m.log.increaseIndent(), m.log.resetIndent() - they persist over all logging, making it easy to trace subsequent actions back to a specific point.
