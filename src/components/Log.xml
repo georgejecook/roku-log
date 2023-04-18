@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<component
-    name='Log'
-    extends='ContentNode'>
+<component name='Log' extends='ContentNode'>
 
   <interface>
     <!-- level of the logging
@@ -10,40 +8,23 @@
       2 - INFO and METHOD
       3 - VERBOSE
       4 - DEBUG -->
-    <field
-        id='logLevel'
-        type='integer'
-        value='4' />
+    <field id='logLevel' type='integer' value='4' />
 
-    <field
-        id='isFiltering'
-        type='boolean'
-        value='true' />
+    <field id='isFiltering' type='boolean' value='true' />
+
+    <field id='enabled' type='boolean' value='true' />
 
 
     <!-- Names of registered loggers to inlcude -->
-    <field
-        id='includeFilters'
-        type='assocarray' />
+    <field id='includeFilters' type='assocarray' />
 
     <!-- Names of registered loggers to exclude -->
-    <field
-        id='excludeFilters'
-        type='assocarray' />
+    <field id='excludeFilters' type='assocarray' />
 
     <!-- Private var for internal optimization -->
-    <field
-        id='logMode'
-        type='integer'
-        value='0' />
-    <field
-        id='includeDate'
-        type='boolean'
-        value='false' />
-    <field
-        id='dateText'
-        type='string'
-        value='' />
+    <field id='logMode' type='integer' value='0' />
+    <field id='includeDate' type='boolean' value='false' />
+    <field id='dateText' type='string' value='' />
 
     <!--
       list of tranportTypes.
@@ -56,14 +37,10 @@
       LogNodeTransport - output goes straight to debug print
       LogScreenTransport - output is stored on
       LogPrintTransport - output goes to console-->
-    <field
-        id='transportTypes'
-        type='array' />
+    <field id='transportTypes' type='array' />
 
     <!-- implementations of the tranpsports -->
-    <field
-        id='transports'
-        type='array' />
+    <field id='transports' type='array' />
 
 
   </interface>
