@@ -62,9 +62,7 @@
   "scripts": {
     "build": "node scripts/run.js && ts-node scripts/move-generated-files.js",
     "build-test": "node scripts/run-test.js",
-    "commit": "cz",
-    "preversion": "npm run build",
-    "release": "standard-version"
+    "commit": "cz"
   },
   "config": {
     "commitizen": {

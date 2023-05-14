@@ -13,8 +13,8 @@ jobs:
         # os: [ubuntu-18.04, macos-10.15] - sorry mac.. dunno what's wrong with you right now
         # os: [ubuntu-18.04, macos-10.15, windows-2019] - sorry windows.. maybe one day
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: "18.4.0"
       - run: npm ci
@@ -28,8 +28,8 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: "18.4.0"
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
