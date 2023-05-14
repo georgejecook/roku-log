@@ -3,7 +3,6 @@
 '  * @description implementation of mLog screen transport
 '  */
 
-
 function init()
   m.lines = []
   m.texts = []
