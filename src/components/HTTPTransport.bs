@@ -9,6 +9,7 @@ function init()
   m.timeSpan = createObject("roTimeSpan")
 end function
 
+
 function logItem(name, levelNum, text)
   m.texts.push(text)
   if m.top.sendAutomatically = true
