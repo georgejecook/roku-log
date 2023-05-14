@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: write
@@ -17,4 +17,4 @@ jobs:
         with:
           release-type: node
           package-name: release-please-action
-          token: secrets.GH_TOKEN
+          token: ${{ secrets.GITHUB_TOKEN }}
