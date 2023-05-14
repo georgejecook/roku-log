@@ -1,3 +1,20 @@
+# Changelog
+
+## [0.11.0](https://github.com/georgejecook/roku-log/compare/0.10.1...v0.11.0) (2023-05-14)
+
+
+### Features
+
+* build ([f5cde4f](https://github.com/georgejecook/roku-log/commit/f5cde4f9318219eafd0d6bedf0bd368fd3c18f92))
+* **build:** improve build process again ([99cee81](https://github.com/georgejecook/roku-log/commit/99cee8190d372ba68fdd3c529ea995ba438eaf3f))
+* **build:** improves build process ([f0cf1df](https://github.com/georgejecook/roku-log/commit/f0cf1dfaff83bdfbc126d6ec6ff1cdfcc21acfc2))
+* **transport:** adds fake change to test build system 1 ([de1e181](https://github.com/georgejecook/roku-log/commit/de1e181ec2059a3911dadf2b26a78af5f38247f8))
+
+
+### Bug Fixes
+
+* **build:** fixes release branch not triggering a build ([64c3d0c](https://github.com/georgejecook/roku-log/commit/64c3d0ce06df2be0aa6083db0dba7379a7752bb3))
+
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
