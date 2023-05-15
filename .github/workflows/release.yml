@@ -3,11 +3,9 @@ on:
   push:
     branches:
       - master
-      - "release-*"
   pull_request:
     branches:
       - master
-      - "release-*"
   workflow_dispatch:
 jobs:
   release:
@@ -34,7 +32,7 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Run release
-        run: npm run release -ci
+        run: npm run release -ci --dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
