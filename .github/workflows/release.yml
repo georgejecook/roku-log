@@ -9,7 +9,7 @@ jobs:
       COVERALLS_REPO_TOKEN: "RuXDcEBMUavqJgSdr5svlXWGDjrDEWFUI"
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-13, windows-2019]
+        os: [ubuntu-20.04]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
