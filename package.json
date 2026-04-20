@@ -6,7 +6,8 @@
     "doc": "docs"
   },
   "files": [
-    "dist/**/!(manifest)*"
+    "dist/**/!(manifest)*",
+    "!dist/**/*.map"
   ],
   "dependencies": {
     "@rokucommunity/bslib": "^0.1.1"
